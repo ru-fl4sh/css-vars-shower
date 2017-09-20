@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Shower Presentation Engine</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="node_modules/shower-ribbon/styles/screen-16x10.css">
+	<style>
+		.slide {
+			padding-top: 50px;
+		}
+		.col-l, .col-r {
+			width: 50%;
+			display: inline-block;
+			vertical-align: top;
+		}
+		.col-l { padding-right: 40px; margin-right: -.3em; }
+		.col-r { padding-left: 40px; }
+		.chrispratt {display: none;}
+		.chrispratt.active {display: block;}
+	</style>
+</head>
+<body class="shower list">
+
+	<header class="caption">
+		<h1>CSS-Переменные (пользовательские css-свойства)</h1>
+		<p>Ефременков Антон, Волга-Веб, 2017</p>
+	</header>
+
+	<section class="slide" id="cover">
+		<h2 class="shout" style="font-size: 120px;">
+			CSS-Переменные<br>
+			<span class="next" style="font-size: 100px; color: lightslategray;">Пользовательские <nobr>CSS-свойства</nobr></span>
+		</h2>
+	</section>
+
+	<section class="slide">
+		<h2 class="shout" style="font-size: 100px;">Вам больше не нужны css-препроцессоры!</h2>
+
+		<img class="vadim-makeev next" src="pictures/vadimmakeev.jpg" alt="" width="200">
+
+		<style>
+			.vadim-makeev {
+				position: absolute;
+				bottom: -40px;
+				left: 0;
+				right: 0;
+				margin: auto;
+				z-index: -1;
+				transform: translateY(50px);
+			}
+			.vadim-makeev.active {
+				transform: translateY(0);
+				transition: transform .3s;
+			}
+		</style>
+	</section>
+	
+	<section class="slide">
+		<h2 class="shout" style="font-size: 100px;">Вам больше не нужны css-препроцессоры!</h2>
+		<p class="note place bottom">(нет)</p>
+	</section>
+
+	<section class="slide">
+		<ol class="place" style="font-size: 80px;">
+			<li>Переменные</li>
+			<li class="next">Миксины</li>
+			<li class="next">Вложенность</li>
+		</ol>
+	</section>
+
+	<section class="slide">
+		<ol class="place" style="font-size: 80px;">
+			<li>Переменные</li>
+			<li style="color: #979a9e">Миксины</li>
+			<li style="color: #979a9e">Вложенность</li>
+		</ol>
+	</section>
+
+	<section class="slide">
+		<h2>Синтаксис</h2>
+		<div class="col-l">
+			<pre>
+				<code>:root {</code>
+				<code>	<mark>--color: white;</mark></code>
+				<code>}</code>
+				<div class="next">
+					<code>&nbsp;</code>
+					<code>p {</code>
+					<code>	<mark>color: var(--color);</mark></code>
+					<code>}</code>
+				</div>
+			</pre>
+		</div>
+		<div class="col-r">
+			<div class="next">
+				<pre>
+					<code>-webkit-property</code>
+					<code>-moz-property</code>
+					<code>-ms-property</code>
+
+					<div class="next">
+						<code>&nbsp;</code>
+						<code>calc()</code>
+						<code>attr()</code>
+						<code>rgb()</code>
+					</div>
+				</pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="slide">
+		<h2>Синтаксис</h2>
+		<pre>
+			<code>:root {</code>
+			<code>	<mark>--color: <span class="jumping">💩</span>;</mark></code>
+			<code>}</code>
+			<code>&nbsp;</code>
+			<code>p {</code>
+			<code>	color: var(<mark>--color</mark>);</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<h2>Синтаксис</h2>
+		<pre>
+			<code>:root {</code>
+			<code>	<mark>--color: <span class="jumping">💩</span>;</mark></code>
+			<code>}</code>
+			<code>&nbsp;</code>
+			<code>p {</code>
+			<code>	color: <mark>inherit;</mark> <span class="comment">&lt;!-- Значение по-умолчанию --&gt;</span></code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<h2>Синтаксис</h2>
+		<pre>
+			<code>:root {</code>
+			<code>	<mark>--color: <span class="jumping">💩</span>;</mark></code>
+			<code>}</code>
+			<code>&nbsp;</code>
+			<code>p {</code>
+			<code>	<mark>color: var(--color, #000);</mark> <span class="comment">&lt;!-- fallback --&gt;</span></code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<h2>Наследование</h2>
+		<pre>
+			<code>body {</code>
+			<code>	<mark>--text-color: #000;</mark></code>
+			<code>}</code>
+			<code>&nbsp;</code>
+			<code>p {</code>
+			<code>	color: var(--text-color)</code>
+			<code>	<mark>--font-size: 18px;</mark> <span class="next comment">&lt;!-- Не доступно в body --&gt;</span></code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<h2>Наследование</h2>
+		<pre>
+			<code>body {</code>
+			<code>	<mark>--font-size: 20px;</mark></code>
+			<code>}</code>
+			<code>ul {</code>
+			<code>	font-size: var(<mark>--font-size</mark>)</code>
+			<code>}</code>
+			<code>ul > li {</code>
+			<code>	<mark>--font-size: initial;</mark> <span class="comment">&lt;!-- Отменяем наследование --&gt;</span></code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №1</h2>
+		<div class="col-l example1-col">
+			<div class="example1-block example1-block--gray">
+				<p>You wake up at Seatac, SFO, LAX. You wake up at O'Hare, Dallas-Fort Worth, BWI. <a class="example1-link" href="#">Pacific, mountain, central</a>. Lose an hour, gain an hour. This is your life, and it's ending one minute at a time. You wake up at Air Harbor International. If you wake up at a different time, in a different place, could you wake up as a <a class="example1-yellow-link" href="#">different person</a>?</p>
+			</div>
+		</div>
+		<div class="col-r example1-col next">
+			<pre>
+				<code>a {</code>
+				<code>	<mark>color: blue;</mark></code>
+				<code>}</code>
+				<code>.block {</code>
+				<code>	font-size: 16px;</code>
+				<code>}</code>
+				<code>.link-green {</code>
+				<code>	<mark>color: green;</mark></code>
+				<code>}</code>
+			</pre>
+		</div>
+
+		<style>
+			.example1-col { height: 60%; }
+			.example1-block { display: flex; align-items: center; justify-content: center; height: 100%; font-size: 16px; padding: 30px; }
+			.example1-block--gray { background-color: white; color: black; border: 1px dotted lightgray; }
+			.example1-block--black { background-color: black; color: lightgray; }
+			.example1-link { color: blue !important; }
+			.example1-block--black .example1-link { color: white !important; }
+			.example1-yellow-link { color: #68c26c !important; }
+			.example1-col code { font-size: 22px; }
+			
+		</style>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №1</h2>
+		<div class="col-l example1-col">
+			<div class="example1-block example1-block--black">
+				<p>You wake up at Seatac, SFO, LAX. You wake up at O'Hare, Dallas-Fort Worth, BWI. <a class="example1-link" href="#">Pacific, mountain, central</a>. Lose an hour, gain an hour. This is your life, and it's ending one minute at a time. You wake up at Air Harbor International. If you wake up at a different time, in a different place, could you wake up as a <a class="example1-yellow-link" href="#">different person</a>?</p>
+			</div>
+		</div>
+		<div class="col-r example1-col next">
+			<pre>
+				<code>.block--black {</code>
+				<code>	background-color: black;</code>
+				<code>}</code>
+				<code>.block--black a {</code>
+				<code>	<mark>color: white;</mark></code>
+				<code>}</code>
+			</pre>
+		</div>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №1</h2>
+		<div class="col-l example1-col">
+			<div class="example1-block example1-block--black">
+				<p>You wake up at Seatac, SFO, LAX. You wake up at O'Hare, Dallas-Fort Worth, BWI. <a class="example1-link" href="#">Pacific, mountain, central</a>. Lose an hour, gain an hour. This is your life, and it's ending one minute at a time. You wake up at Air Harbor International. If you wake up at a different time, in a different place, could you wake up as a <a class="example1-link" href="#">different person</a>?</p>
+			</div>
+		</div>
+		<div class="col-r example1-col next">
+			<img class="pepefrog" src="pictures/pepefrog.jpg">
+		</div>
+
+		<style>
+			.pepefrog {
+				max-width: 100%;
+				height: auto;
+			}
+		</style>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №1</h2>
+		<div class="col-l example1-col">
+			<div class="example1-block example1-block--gray">
+				<p>You wake up at Seatac, SFO, LAX. You wake up at O'Hare, Dallas-Fort Worth, BWI. <a class="example1-link" href="#">Pacific, mountain, central</a>. Lose an hour, gain an hour. This is your life, and it's ending one minute at a time. You wake up at Air Harbor International. If you wake up at a different time, in a different place, could you wake up as a <a class="example1-yellow-link" href="#">different person</a>?</p>
+			</div>
+		</div>
+		<div class="col-r example1-col next">
+			<pre>
+				<code>:root {</code>
+				<code>	<mark>--link-color: blue;</mark></code>
+				<code>}</code>
+				<code>a {</code>
+				<code>	<mark>color: var(--link-color);</mark></code>
+				<code>}</code>
+				<code><span class="comment">&lt;!-- ... --&gt;</span></code>
+				<code>.link-green {</code>
+				<code>	<mark>color: green;</mark></code>
+				<code>}</code>
+			</pre>
+		</div>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №1</h2>
+		<div class="col-l example1-col">
+			<div class="example1-block example1-block--black">
+				<p>You wake up at Seatac, SFO, LAX. You wake up at O'Hare, Dallas-Fort Worth, BWI. <a class="example1-link" href="#">Pacific, mountain, central</a>. Lose an hour, gain an hour. This is your life, and it's ending one minute at a time. You wake up at Air Harbor International. If you wake up at a different time, in a different place, could you wake up as a <a class="example1-yellow-link" href="#">different person</a>?</p>
+			</div>
+		</div>
+		<div class="col-r example1-col next">
+			<pre>
+				<code>.block--black {</code>
+				<code>	<mark>--link-color: white;</mark></code>
+				<code>}</code>
+			</pre>
+
+			<img class="chrispratt next" src="pictures/chris-pratt-reaction-noloop.gif?1">
+		</div>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №2</h2>
+		<div class="col-l">
+			<div class="example2-fullscreen">
+				<div class="example2-wrapper">1920px</div>
+			</div>
+			<div class="example2-phone next">
+				<div class="example2-wrapper">320px</div>
+			</div>
+		</div>
+		<div class="col-r next">
+			<pre>
+				<code>:root {</code>
+				<code>	<mark>--gutter: 30px;</mark></code>
+				<code>}</code>
+
+				<code>.wrapper {</code>
+				<code>	margin: 0 <mark>var(--gutter)</mark>;</code>
+				<code>}</code>
+
+				<div class="next">
+					<code>@media (max-width: 767px) {</code>
+				<code>	<mark>--gutter: 15px;</mark></code>
+				<code>}</code>
+				</div>
+			</pre>
+		</div>
+
+		<style>
+			.example2-fullscreen {
+				height: 200px;
+				padding: 0 30px;
+				background-color: lightgreen;
+			}
+			.example2-wrapper {
+				position: relative;
+				display: flex;
+				height: 100%;
+				align-items: center;
+				justify-content: center;
+				background-color: orange;
+				font-size: 55px;
+			}
+			.example2-phone {
+				width: 200px;
+				height: 260px;
+				padding: 0 15px;
+				margin: 20px auto 0;
+				background-color: lightgreen;
+			}
+			.example2-chrispratt {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				left: 0;
+				top: 0;
+			}
+			.example2-chrispratt img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		</style>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №2</h2>
+		<div class="col-l">
+			<div class="example2-fullscreen">
+				<div class="example2-wrapper">
+					1920px
+					<div class="example2-chrispratt">
+						<img class="chrispratt next" src="pictures/chris-pratt-reaction-noloop.gif?2">
+					</div>
+				</div>
+
+			</div>
+			<div class="example2-phone">
+				<div class="example2-wrapper">
+					320px
+					<div class="example2-chrispratt">
+						<img class="chrispratt next" src="pictures/chris-pratt-reaction-noloop.gif?3">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-r">
+			<pre>
+				<code>:root {</code>
+				<code>	<mark>--gutter: 30px;</mark></code>
+				<code>}</code>
+
+				<code>.wrapper {</code>
+				<code>	margin: 0 <mark>var(--gutter)</mark>;</code>
+				<code>}</code>
+
+				<div>
+					<code>@media (max-width: 767px) {</code>
+				<code>	<mark>--gutter: 15px;</mark></code>
+				<code>}</code>
+				</div>
+			</pre>
+		</div>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №3</h2>
+		<pre>
+			<code>.row {</code>
+			<code>	display: flex;</code>
+			<code>	flex-wrap: wrap;</code>
+			<code>}</code>
+			<code>.col {</code>
+			<code>	flex: 0 0 calc(100% / var(--cols, 1));</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №3</h2>
+		<pre>
+			<code>&lt;div class="row"&gt;</code>
+			<code>	&lt;div class="col"&gt;&lt;/div&gt;</code>
+			<code>	&lt;div class="col"&gt;&lt;/div&gt;</code>
+			<code>	&lt;div class="col"&gt;&lt;/div&gt;</code>
+			<code>&lt;/div&gt;</code>
+		</pre>
+
+		<div class="example3-row">
+			<div class="example3-col">Колонка 1</div>
+			<div class="example3-col">Колонка 2</div>
+			<div class="example3-col">Колонка 3</div>
+		</div>
+
+		<style>
+			.example3-row {
+				display: flex;
+				flex-wrap: wrap;
+			}
+			.example3-col {
+				border: 1px solid #000;
+				margin-top: 5px;
+				padding: 10px;
+				flex: 0 0 calc(100% / var(--cols, 1));
+				font-size: 20px;
+			}
+		</style>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №3</h2>
+		<pre>
+			<code>&lt;div class="row <mark>row--grid3</mark>"&gt;</code>
+			<code>	&lt;div class="col"&gt;&lt;/div&gt;</code>
+			<code>	&lt;div class="col"&gt;&lt;/div&gt;</code>
+			<code>	&lt;div class="col"&gt;&lt;/div&gt;</code>
+			<code>&lt;/div&gt;</code>
+		</pre>
+
+		<div class="example3-row" style="--cols: 3;">
+			<div class="example3-col">Колонка 1</div>
+			<div class="example3-col">Колонка 2</div>
+			<div class="example3-col">Колонка 3</div>
+		</div>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №3</h2>
+		<pre>
+			<code>.row {</code>
+			<code>	display: flex;</code>
+			<code>	flex-wrap: wrap;</code>
+			<code>}</code>
+			<code>.col {</code>
+			<code>	flex: 0 0 calc(100% / var(--cols, 1));</code>
+			<code>}</code>
+			<code><mark>.row--grid3 {</mark></code>
+			<code>	<mark>--cols: 3;</mark></code>
+			<code><mark>}</mark></code>
+		</pre>
+
+		<img class="example3-chrispratt next" src="pictures/chris-pratt.png" alt="">
+
+		<style>
+			.example3-chrispratt {
+				position: absolute;
+				bottom: -50px;
+				right: 50px;
+				transform: rotate(-45deg) translateX(200px) translateY(200px);
+			}
+			.example3-chrispratt.active {
+				transform: rotate(-45deg) translateX(50px) translateY(50px);
+				transition: transform 10s;
+			}
+		</style>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №3</h2>
+		<pre>
+			<code>.row {</code>
+			<code>	display: flex;</code>
+			<code>	flex-wrap: wrap;</code>
+			<code>}</code>
+			<code>.col {</code>
+			<code>	flex: 0 0 <mark>calc(100% * var(--cols, 12) / 12)</mark>;</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №3</h2>
+		<pre>
+			<code>&lt;div class="row"&gt;</code>
+			<code>	&lt;div class="col" <mark>style="--cols: 4;"</mark>&gt;&lt;/div&gt;</code>
+			<code>	&lt;div class="col" <mark>style="--cols: 8;"</mark>&gt;&lt;/div&gt;</code>
+			<code>	&lt;div class="col" <mark>style="--cols: 12;"</mark>&gt;&lt;/div&gt;</code>
+			<code>&lt;/div&gt;</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<h2>Пример №3</h2>
+		<pre>
+			<code>&lt;div class="row" <mark>style="--grid: 14;"</mark>&gt;</code>
+			<code>	&lt;div class="col" <mark>style="--cols: 4;"</mark>&gt;&lt;/div&gt;</code>
+			<code>	&lt;div class="col" <mark>style="--cols: 8;"</mark>&gt;&lt;/div&gt;</code>
+			<code>	&lt;div class="col" <mark>style="--cols: 12;"</mark>&gt;&lt;/div&gt;</code>
+			<code>&lt;/div&gt;</code>
+		</pre>
+
+		<img class="chrispratt next" src="pictures/please-stop.gif" alt="">
+	</section>
+
+	<section class="slide">
+		<h2>Javascript</h2>
+		<div class="next">
+			<p class="js-title">Получаем</p>
+			<pre>
+				<code>getComputedStyle(document.documentElement)<br><mark>.getPropertyValue</mark>('--variable');</code>
+			</pre>
+		</div>
+		<div class="next">
+			<p class="js-title">Устанавливаем</p>
+			<pre>
+				<code>element.style<mark>.setProperty</mark>('--variable', 'value');</code>
+			</pre>
+		</div>
+		<div class="next">
+			<p class="js-title">Удаляем</p>
+			<pre>
+				<code>element.style<mark>.removeProperty</mark>('--variable');</code>
+			</pre>
+		</div>
+
+		<style>
+			.js-title {
+				font-weight: bold;
+				margin-bottom: 0 !important;
+			}
+		</style>
+	</section>
+
+	<section class="slide" style="background-color: #f2e8d5;">
+		<h2 style="text-align: center">Использование</h2>
+		<img class="cover" src="pictures/caniuse.png">
+	</section>
+
+	<section class="slide">
+		<h2>Использование в IE</h2>
+		<p class="js-title">Fallback</p>
+		<div class="next">
+			<pre>
+				<code>p {</code>
+				<code>	color: black;</code>
+				<code>	color: var(--text-color);</code>
+				<code>}</code>
+			</pre>
+		</div>
+
+		<div class="next">
+			<p class="js-title">Полифил</p>
+		</div>
+	</section>
+
+	<section class="slide active" id="shower">
+		<img class="place" src="pictures/logo.svg" alt="Логотип Шовера">
+		<h2 class="shout"><a href="http://shwr.me/">Shower</a></h2>
+		<style>
+			#shower img {
+				margin: 22px 0 0 -210px;
+				width: 150px;
+			}
+			#shower h2 {
+				margin-left: 100px;
+			}
+		</style>
+	</section>
+
+	<section class="slide">
+		<h2 class="shout">Вопросы?</h2>
+	</section>
+
+	<div class="progress"></div>
+
+	<script src="node_modules/shower-core/shower.min.js"></script>
+	<!-- Copyright © 2017 Yours Truly, Famous Inc. -->
+
+</body>
+</html>
